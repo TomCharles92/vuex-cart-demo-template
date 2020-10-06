@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// 这个例子比较复杂，不适合
+// import Vuex from '../myvuex/index'
 import products from './products'
 import cart from './cart'
 
