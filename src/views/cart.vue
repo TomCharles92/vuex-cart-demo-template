@@ -39,7 +39,9 @@
         prop="count"
         label="数量">
         <template v-slot="scope">
-          <el-input-number :value="scope.row.count" @change="addProductCount({
+          <!-- updateProductCount -->
+          <!-- action 未使用 mutation，所以不会使用插件 localStorage -->
+          <el-input-number :value="scope.row.count" @change="asyncUpdateProductCount({
             id: scope.row.id,
             count: $event
           })" size="mini"></el-input-number>
@@ -64,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 
 export default {
   name: 'Cart',
@@ -84,7 +86,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('cart', ['deleteProd', 'updateAllProductChecked', 'updateProductChecked', 'addProductCount'])
+    ...mapMutations('cart', ['deleteProd', 'updateAllProductChecked', 'updateProductChecked', 'updateProductCount']),
+    ...mapActions('cart', ['asyncUpdateProductCount'])
   }
 }
 </script>

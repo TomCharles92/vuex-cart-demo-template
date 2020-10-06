@@ -1,5 +1,5 @@
 const state = {
-  cartProducts: []
+  cartProducts: JSON.parse(window.localStorage.getItem('cart-products')) || []
 }
 const getters = {
   totalCount (state) {
@@ -47,12 +47,19 @@ const mutations = {
     const prod = state.cartProducts.find(prod => prod.id === id)
     prod && (prod.isChecked = isChecked)
   },
-  addProductCount (state, { id, count }) {
+  updateProductCount (state, { id, count }) {
     const prod = state.cartProducts.find(prod => prod.id === id)
     prod && (prod.count = count)
   }
 }
-const actions = {}
+const actions = {
+  asyncUpdateProductCount (context, { id, count }) {
+    const prod = context.state.cartProducts.find(prod => prod.id === id)
+    setTimeout(() => {
+      prod && (prod.count = count)
+    }, 100)
+  }
+}
 
 export default {
   namespaced: true,
